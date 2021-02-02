@@ -65,6 +65,22 @@
         </tr>
         <tr>
             <td style="width:50%;">
+                status
+            </td>
+            <td>
+                <?php echo $view['status']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                remote branches
+            </td>
+            <td>
+                <?php echo $view['remoteBranches']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
                 <label
                     for="<?php echo $view['options']['commitMessage']->name; ?>"
                 ><?php echo $view['options']['commitMessage']->label; ?></label>

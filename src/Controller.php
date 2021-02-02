@@ -134,11 +134,20 @@ class Controller {
         if ( ! $repo ) {
             $err = 'Trying to get repo: ' . $git_path;
             \WP2Static\WsLog::l( $err );
-            $view['currentBranch'] = 'git repo not found!';
-            $view['currentBranch'] = 'git repo not found!';
+            $view['currentBranch'] = '<strong style="color:red">git repo not found!</strong>';
+            $view['currentBranch'] = '<strong style="color:red">git repo not found!</strong>';
+            $view['status'] = '<strong style="color:red">git repo not found!</strong>';
+            $view['remoteBranches'] = '<strong style="color:red">git repo not found!</strong>';
         }else{
             $view['currentBranch'] = $repo->getCurrentBranchName();
             $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
+            $view['status'] = implode("<br>", $repo->execute(array('status')));
+            $remote = $repo->execute(array('remote'));
+            if(!$remote){
+                $view['remoteBranches'] = '<strong style="color:red">remote not found!</strong>';
+            }else{
+                $view['remoteBranches'] = implode("<br>", $repo->execute(array('remote')));
+            }
         }
 
 
