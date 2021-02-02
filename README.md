@@ -2,4 +2,4 @@
 
 git option for WP2Static.
 
-commit your processed static website.
+commit your processed static website to remote repository.
