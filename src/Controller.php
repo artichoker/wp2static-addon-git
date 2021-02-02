@@ -134,10 +134,13 @@ class Controller {
         if ( ! $repo ) {
             $err = 'Trying to get repo: ' . $git_path;
             \WP2Static\WsLog::l( $err );
+            $view['currentBranch'] = 'git repo not found!';
+            $view['currentBranch'] = 'git repo not found!';
+        }else{
+            $view['currentBranch'] = $repo->getCurrentBranchName();
+            $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
         }
 
-        $view['currentBranch'] = $repo->getCurrentBranchName();
-        $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
 
         require_once __DIR__ . '/../views/git-page.php';
     }
