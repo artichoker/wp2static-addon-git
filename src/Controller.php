@@ -131,6 +131,11 @@ class Controller {
 
         $repo = new \Cz\Git\GitRepository($git_path);
 
+        if ( ! $repo ) {
+            $err = 'Trying to get repo: ' . $git_path;
+            \WP2Static\WsLog::l( $err );
+        }
+
         $view['currentBranch'] = $repo->getCurrentBranchName();
         $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
 
