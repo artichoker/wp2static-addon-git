@@ -98,9 +98,25 @@
     </tbody>
 </table>
 
-
 <br>
 
     <button class="button btn-primary">Save git Options</button>
+
+<div>
+<h2>How to add remote github repository</h2>
+<h3>1.Generate an SSH key</h3>
+<pre>
+cd ~                 #Your home directory
+ssh-keygen -t rsa    #Press enter for all values
+</pre>
+<h3>2. Registor the SSH key to your github</h3>
+<p>If it is a GitHub repository and you have administrative privileges, go to <a href="https://github.com/settings/ssh">settings</a> and click 'add SSH key'. Copy the contents of your ~/.ssh/id_rsa.pub into the field labeled 'Key'.</p>
+
+<h3>3.Set your remote URL</h3>
+<pre>git remote add git+ssh://git@github.com/username/reponame.git</pre>
+<pre>git remote show origin</pre>
+<pre>git push origin branch</pre>
+</div>
+
 </form>
 
