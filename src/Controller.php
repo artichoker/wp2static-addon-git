@@ -36,7 +36,7 @@ class Controller {
             'deploy',
             'Git',
             'https://github.com/artichoker/wp2static-addon-git',
-            'Git Commit & Push when static site processed'
+            'Commit & Push when static site processed'
         );
 
         if ( defined( 'WP_CLI' ) ) {
@@ -78,11 +78,20 @@ class Controller {
         $query_string =
             "INSERT IGNORE INTO $table_name (name, value, label, description) " .
             'VALUES (%s, %s, %s, %s);';
+        
+        $query = $wpdb->prepare(
+            $query_string,
+            'remoteName',
+            'origin',
+            'remoteName',
+            'remoteName'
+        );
 
+        $wpdb->query( $query );
         $query = $wpdb->prepare(
             $query_string,
             'commitMessage',
-            '',
+            'commit from wp2static',
             'commitMessage',
             'commitMessage'
         );
@@ -114,13 +123,16 @@ class Controller {
         $view = [];
         $view['nonce_action'] = 'wp2static-git-options';
         $view['uploads_path'] = \WP2Static\SiteInfo::getPath( 'uploads' );
-        $git_path = \WP2Static\SiteInfo::getPath( 'uploads' ) . 'wp2static-processed-site.git';
+
+        $git_path = \WP2Static\SiteInfo::getPath( 'uploads' ) . 'wp2static-processed-site';
+        $view['git_path'] = $git_path;
 
         $view['options'] = self::getOptions();
 
-        $view['git_url'] =
-            is_file( $git_path ) ?
-                \WP2Static\SiteInfo::getUrl( 'uploads' ) . 'wp2static-processed-site.git' : '#';
+        $repo = new \Cz\Git\GitRepository($git_path);
+
+        $view['currentBranch'] = $repo->getCurrentBranchName();
+        $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
 
         require_once __DIR__ . '/../views/git-page.php';
     }
@@ -131,7 +143,7 @@ class Controller {
             return;
         }
 
-        \WP2Static\WsLog::l( 'Git Addon commit and pushing' );
+        \WP2Static\WsLog::l( 'Git Addon start commit and push' );
 
         $git_deployer = new Deployer();
         $git_deployer->commit( $processed_site_path );
@@ -242,6 +254,12 @@ class Controller {
         global $wpdb;
 
         $table_name = $wpdb->prefix . 'wp2static_addon_git_options';
+
+        $wpdb->update(
+            $table_name,
+            [ 'value' => sanitize_text_field( $_POST['remoteName'] ) ],
+            [ 'name' => 'remoteName' ]
+        );
 
         $wpdb->update(
             $table_name,

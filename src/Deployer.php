@@ -1,12 +1,6 @@
 <?php
 
 namespace WP2StaticGit;
-
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
-use WP2Static\WsLog;
-use Cz\Git\GitRepository;
-
 class Deployer {
 
     const DEFAULT_NAMESPACE = 'wp2static-addon-git/default';

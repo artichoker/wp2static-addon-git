@@ -25,6 +25,47 @@
         <tr>
             <td style="width:50%;">
                 <label
+                    for="git_path"
+                >local repository path</label>
+            </td>
+            <td>
+                <?php echo $view['git_path']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                <label
+                    for="<?php echo $view['options']['remoteName']->name; ?>"
+                ><?php echo $view['options']['remoteName']->label; ?></label>
+            </td>
+            <td>
+                <input
+                    id="<?php echo $view['options']['remoteName']->name; ?>"
+                    name="<?php echo $view['options']['remoteName']->name; ?>"
+                    type="text"
+                    value="<?php echo $view['options']['remoteName']->value !== '' ? $view['options']['remoteName']->value : ''; ?>"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                current branch
+            </td>
+            <td>
+                <?php echo $view['currentBranch']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                local branches
+            </td>
+            <td>
+                <?php echo $view['localBranches']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                <label
                     for="<?php echo $view['options']['commitMessage']->name; ?>"
                 ><?php echo $view['options']['commitMessage']->label; ?></label>
             </td>
