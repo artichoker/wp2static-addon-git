@@ -86,8 +86,8 @@ class Controller {
             'remoteName',
             'remoteName'
         );
-
         $wpdb->query( $query );
+
         $query = $wpdb->prepare(
             $query_string,
             'commitMessage',
@@ -95,7 +95,24 @@ class Controller {
             'commitMessage',
             'commitMessage'
         );
+        $wpdb->query( $query );
+        
+        $query = $wpdb->prepare(
+            $query_string,
+            'userName',
+            'git user.name',
+            'userName',
+            'userName'
+        );
+        $wpdb->query( $query );
 
+        $query = $wpdb->prepare(
+            $query_string,
+            'userEmail',
+            'git user.email',
+            'userEmail',
+            'userEmail'
+        );
         $wpdb->query( $query );
 
     }
@@ -137,16 +154,16 @@ class Controller {
             $view['currentBranch'] = '<strong style="color:red">git repo not found!</strong>';
             $view['currentBranch'] = '<strong style="color:red">git repo not found!</strong>';
             $view['status'] = '<strong style="color:red">git repo not found!</strong>';
-            $view['remoteBranches'] = '<strong style="color:red">git repo not found!</strong>';
+            $view['remoteName'] = '<strong style="color:red">git repo not found!</strong>';
         }else{
             $view['currentBranch'] = $repo->getCurrentBranchName();
             $view['localBranches'] = "['" . implode("','", $repo->getLocalBranches()) . "']";
             $view['status'] = implode("<br>", $repo->execute(array('status')));
             $remote = $repo->execute(array('remote'));
             if(!$remote){
-                $view['remoteBranches'] = '<strong style="color:red">remote not found!</strong>';
+                $view['remoteName'] = '<strong style="color:red">remote not found!</strong>';
             }else{
-                $view['remoteBranches'] = implode("<br>", $repo->execute(array('remote')));
+                $view['remoteName'] = implode("<br>", $repo->execute(array('remote')));
             }
         }
 
@@ -161,7 +178,7 @@ class Controller {
         }
 
         \WP2Static\WsLog::l( 'Git Addon start commit and push' );
-
+        
         $git_deployer = new Deployer();
         $git_deployer->commit( $processed_site_path );
     }
@@ -282,6 +299,18 @@ class Controller {
             $table_name,
             [ 'value' => sanitize_text_field( $_POST['commitMessage'] ) ],
             [ 'name' => 'commitMessage' ]
+        );
+
+        $wpdb->update(
+            $table_name,
+            [ 'value' => sanitize_text_field( $_POST['userName'] ) ],
+            [ 'name' => 'userName' ]
+        );
+
+        $wpdb->update(
+            $table_name,
+            [ 'value' => sanitize_text_field( $_POST['userEmail'] ) ],
+            [ 'name' => 'userEmail' ]
         );
 
         wp_safe_redirect( admin_url( 'admin.php?page=wp2static-addon-git' ) );

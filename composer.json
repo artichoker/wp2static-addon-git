@@ -16,7 +16,8 @@
     "repositories": [],
     "require": {
         "php": ">=7.3",
-        "czproject/git-php": "^3.18.1"
+        "czproject/git-php": "^3.18.1",
+        "cpliakas/git-wrapper":"^2.0.0"
     },
     "require-dev": {
         "phpstan/phpstan": "*",

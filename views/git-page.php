@@ -34,21 +34,6 @@
         </tr>
         <tr>
             <td style="width:50%;">
-                <label
-                    for="<?php echo $view['options']['remoteName']->name; ?>"
-                ><?php echo $view['options']['remoteName']->label; ?></label>
-            </td>
-            <td>
-                <input
-                    id="<?php echo $view['options']['remoteName']->name; ?>"
-                    name="<?php echo $view['options']['remoteName']->name; ?>"
-                    type="text"
-                    value="<?php echo $view['options']['remoteName']->value !== '' ? $view['options']['remoteName']->value : ''; ?>"
-                />
-            </td>
-        </tr>
-        <tr>
-            <td style="width:50%;">
                 current branch
             </td>
             <td>
@@ -73,10 +58,25 @@
         </tr>
         <tr>
             <td style="width:50%;">
-                remote branches
+                remote name
             </td>
             <td>
-                <?php echo $view['remoteBranches']; ?>
+                <?php echo $view['remoteName']; ?>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                <label
+                    for="<?php echo $view['options']['remoteName']->name; ?>"
+                ><?php echo $view['options']['remoteName']->label; ?></label>
+            </td>
+            <td>
+                <input
+                    id="<?php echo $view['options']['remoteName']->name; ?>"
+                    name="<?php echo $view['options']['remoteName']->name; ?>"
+                    type="text"
+                    value="<?php echo $view['options']['remoteName']->value !== '' ? $view['options']['remoteName']->value : ''; ?>"
+                />
             </td>
         </tr>
         <tr>
@@ -91,6 +91,36 @@
                     name="<?php echo $view['options']['commitMessage']->name; ?>"
                     type="text"
                     value="<?php echo $view['options']['commitMessage']->value !== '' ? $view['options']['commitMessage']->value : ''; ?>"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                <label
+                    for="<?php echo $view['options']['userName']->name; ?>"
+                ><?php echo $view['options']['userName']->label; ?></label>
+            </td>
+            <td>
+                <input
+                    id="<?php echo $view['options']['userName']->name; ?>"
+                    name="<?php echo $view['options']['userName']->name; ?>"
+                    type="text"
+                    value="<?php echo $view['options']['userName']->value !== '' ? $view['options']['userName']->value : ''; ?>"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%;">
+                <label
+                    for="<?php echo $view['options']['userEmail']->name; ?>"
+                ><?php echo $view['options']['userEmail']->label; ?></label>
+            </td>
+            <td>
+                <input
+                    id="<?php echo $view['options']['userEmail']->name; ?>"
+                    name="<?php echo $view['options']['userEmail']->name; ?>"
+                    type="text"
+                    value="<?php echo $view['options']['userEmail']->value !== '' ? $view['options']['userEmail']->value : ''; ?>"
                 />
             </td>
         </tr>
